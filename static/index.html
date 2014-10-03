@@ -2,30 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title>DooDooDoodoo</title>
-    <link rel="stylesheet" type="text/css" href="static/vendor/normalize.css/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="static/vendor/min/entireframework.min.css"/>
-    <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+    <title>gohttp/app todo example</title>
+    <link rel="stylesheet" type="text/css" href="/static/vendor/normalize.css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/vendor/min/entireframework.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
   </head>
   <body>
+    <!-- <pre data-bind="text: ko.toJSON(tasks)"></pre> -->
     <div class="wrap">
-      <p id="title">DooDooDooDoo</p>
+      <p id="title">
+	<a href="https://github.com/gohttp/app">todo</a>
+      </p>
       <div class="tasks">
-	<form class="task-form">
+	<form class="task-form" data-bind="submit: save">
 	  <fieldset>
-	    <input id="edit" class="task-input smooth" type="text" dir="auto"/>
-	    <a class="icon add-icon" href="#">✚</a>
+	    <input id="edit" class="task-input smooth" type="text" dir="auto" data-bind="value: task.todo"/>
+	    <a class="icon add-icon" href="#" data-bind="click: save">✚</a>
 	  </fieldset>
 	</form>
       </div>
       <div class="tasks">
-	<ul>
+	<ul data-bind="foreach: tasks">
 	  <li>
 	    <form>
 	      <fieldset>
-		<input type="checkbox"/>
-		<span class="task-span" dir="auto">hello</span>
-		<a class="icon delete-icon" href="#">✗</a>
+		<input type="checkbox" data-bind="checked: done, click: $root.update"/>
+		<span class="task-span" dir="auto" data-bind="text: todo"></span>
+		<a class="icon delete-icon" href="#" data-bind="click: $root.delete">✗</a>
 	      </fieldset>
 	    </form>
 	  </li>
@@ -33,4 +36,7 @@
       </div>
     </div>
   </body>
+  <script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/static/vendor/knockout/dist/knockout.js"></script>
+  <script src="/static/js/index.js"></script>
 </html>

@@ -9,13 +9,17 @@ ul {
 }
 
 p {
-    color: black;
     text-align: center;
-    font-size: 60px;
+    font-size: 50px;
     margin-bottom: 10px;
+    padding-right: 30px;
     overflow: auto;
 }
 
+p > a {
+    text-decoration: none;
+    color: black;
+}
 input[type=checkbox] {
   -ms-transform: scale(1.1);
   -moz-transform: scale(1.1);
