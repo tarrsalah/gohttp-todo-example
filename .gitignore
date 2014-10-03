@@ -1,3 +1,4 @@
 gohttp-todo-example
+*.sh
 *.db
 static/vendor/**
