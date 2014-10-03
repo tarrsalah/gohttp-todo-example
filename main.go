@@ -6,6 +6,7 @@ import (
 	"github.com/gohttp/logger"
 	"github.com/gohttp/response"
 	"github.com/tarrsalah/gohttp-todo-example/db"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -57,6 +58,31 @@ func main() {
 			return
 		}
 		response.Created(w, task)
+	})
+
+	a.Put("/api/tasks/:id", func(w http.ResponseWriter, r *http.Request) {
+		newTask := db.NewTask("")
+		dec := json.NewDecoder(r.Body)
+		err := dec.Decode(newTask)
+		if err != nil {
+			log.Println(err)
+			response.InternalServerError(w)
+			return
+		}
+		newTask.ID, err = strconv.Atoi(r.URL.Query().Get(":id"))
+		if err != nil {
+			log.Println(err)
+			response.InternalServerError(w)
+			return
+		}
+		log.Println(newTask)
+		count, err := db.Map.Update(newTask)
+		if err != nil || count > 1 {
+			log.Println(err)
+			response.InternalServerError(w)
+			return
+		}
+		response.Created(w, newTask)
 	})
 
 	a.Del("/api/tasks/:id", func(w http.ResponseWriter, r *http.Request) {
