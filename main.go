@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gohttp/app"
 	"github.com/gohttp/logger"
 	"github.com/gohttp/response"
@@ -12,7 +11,7 @@ import (
 )
 
 func main() {
-	db.BootStrap()
+	// db.BootStrap()
 	a := app.New()
 	a.Use(logger.New())
 
@@ -25,7 +24,7 @@ func main() {
 	})
 
 	a.Get("/api/tasks", func(w http.ResponseWriter, r *http.Request) {
-		var tasks []*db.Task
+		tasks := []*db.Task{}
 		err := db.Map.Select(&tasks, "select * from task")
 		if err != nil {
 			response.InternalServerError(w)
@@ -57,7 +56,7 @@ func main() {
 			response.InternalServerError(w)
 			return
 		}
-		response.Created(w)
+		response.Created(w, task)
 	})
 
 	a.Del("/api/tasks/:id", func(w http.ResponseWriter, r *http.Request) {
@@ -65,18 +64,16 @@ func main() {
 		task := db.NewTask("")
 		task.ID, err = strconv.Atoi(r.URL.Query().Get(":id"))
 		if err != nil {
-			fmt.Println(err)
 			response.InternalServerError(w)
 			return
 		}
 		_, err = db.Map.Delete(task)
 		if err != nil {
-			fmt.Println(err)
 			response.InternalServerError(w)
 			return
 		}
 		response.NoContent(w)
-
 	})
+
 	a.Listen(":3000")
 }
