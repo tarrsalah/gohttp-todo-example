@@ -1,5 +1,5 @@
 (function(ko,$) {
-    var task = function(data) {
+    var Task = function(data) {
 	data = data || {};
 	this.id = data.id || 0;
 	this.todo = ko.observable(data.todo);
@@ -9,7 +9,7 @@
     var todoViewModel = function() {
 	var that = this;
 
-	that.task= new task({
+	that.task= new Task({
 	    todo:"",
 	    done: false
 	});
@@ -19,7 +19,7 @@
 	that.getTasks= function() {
 	    $.getJSON("/api/tasks", function(data) {
 		data.forEach(function(t) {
-		    that.tasks.push(new task(t));
+		    that.tasks.push(new Task(t));
 		});
 	    });
 	};
@@ -31,7 +31,7 @@
 		dataType: "json",
 		data: ko.toJSON(that.task,"[todo, done]", 2)
 	    }).done(function(data) {
-		that.tasks.push(new task(data));
+		that.tasks.push(new Task(data));
 	    }).fail(function(data) {
 		that.getTasks();
 	    });
