@@ -1,12 +1,12 @@
 (function(ko,$) {
-    var Task = function(data) {
+    function Task (data) {
 	data = data || {};
 	this.id = data.id || 0;
 	this.todo = ko.observable(data.todo);
 	this.done = ko.observable(data.done);
     };
 
-    var todoViewModel = function() {
+    function TodoViewModel () {
 	var that = this;
 
 	that.task= new Task({
@@ -59,8 +59,9 @@
 		that.getTasks();
 	    });
 	};
+
 	that.getTasks();
     };
 
-    ko.applyBindings(new todoViewModel());
+    ko.applyBindings(new TodoViewModel());
 }(ko,jQuery));
