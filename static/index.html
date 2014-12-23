@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
   </head>
   <body>
-    <!-- <pre data-bind="text: ko.toJSON(tasks)"></pre> -->
     <div class="wrap">
       <p id="title">
 	<a href="https://github.com/gohttp/app">todo</a>
@@ -28,7 +27,7 @@
 	      <fieldset>
 		<input type="checkbox" data-bind="checked: done, click: $root.update"/>
 		<span class="task-span" dir="auto" data-bind="text: todo"></span>
-		<a class="icon delete-icon" href="#" data-bind="click: $root.delete">✗</a>
+		<a class="icon delete-icon" href="#" data-bind="click: $root.delete">✖</a>
 	      </fieldset>
 	    </form>
 	  </li>
