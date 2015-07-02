@@ -11,11 +11,9 @@ import (
 )
 
 func main() {
-	// db.BootStrap()
 	a := app.New()
 	a.Use(logger.New())
 
-	// serve static files
 	fs := http.FileServer(http.Dir("./static/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
